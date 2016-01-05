@@ -40,11 +40,11 @@
         self.nombre = aUsuarioDao[@"nombre"];
         self.correo = aUsuarioDao[@"correo"];
         self.fechaNacimiento = aUsuarioDao[@"fecha_nacimiento"];
-        self.hombre = [aUsuarioDao[@"hombre"] boolValue];
+        self.hombre = aUsuarioDao[@"hombre"];
         self.telefono = aUsuarioDao[@"telefono"];
         self.fechaVencimientoLicencia = aUsuarioDao[@"fecha_vencimiento_licencia"];
         self.fechaModificacion = aUsuarioDao[@"fecha_modificacion"];
-        self.borrado = [aUsuarioDao[@"borrado"] boolValue];
+        self.borrado = aUsuarioDao[@"borrado"];
     }
     return self;
 }
@@ -56,11 +56,11 @@
     [nombre dealloc];
     [correo dealloc];
     [fechaNacimiento dealloc];
-    hombre = -1;
+    [hombre dealloc];
     [telefono dealloc];
     [fechaVencimientoLicencia dealloc];
     [fechaModificacion dealloc];
-    borrado = nil;
+    [borrado dealloc];
 
     [super dealloc];
 }
@@ -68,26 +68,26 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat: @"usuario: "
-        "id=%ld, "
-        "idComuna=%ld, "
-        "nombre='%@', "
-        "correo='%@', "
-        "fechaNacimiento='%@', "
-        "hombre=%c, "
-        "telefono='%@', "
-        "fechaVencimientoLicencia='%@', "
-        "fechaModificacion='%@', "
-        "borrado=%c", 
-        id, 
-        idComuna, 
-        nombre, 
-        correo, 
-        fechaNacimiento, 
-        hombre, 
-        telefono, 
-        fechaVencimientoLicencia, 
-        fechaModificacion, 
-        borrado];
+        "id=%@, "
+        "idComuna=%@, "
+        "nombre=%@, "
+        "correo=%@, "
+        "fechaNacimiento=%@, "
+        "hombre=%@, "
+        "telefono=%@, "
+        "fechaVencimientoLicencia=%@, "
+        "fechaModificacion=%@, "
+        "borrado=%@", 
+        [self id] != nil ? [NSString stringWithFormat: @"%ld", [self id]] : @"null", 
+        [self idComuna] != nil ? [NSString stringWithFormat: @"%ld", [self idComuna]] : @"null", 
+        [self nombre] != nil ? [NSString stringWithFormat: @"'%@'", [self nombre]] : @"null", 
+        [self correo] != nil ? [NSString stringWithFormat: @"'%@'", [self correo]] : @"null",
+        [self fechaNacimiento] != nil ? [NSString stringWithFormat: @"'%@'", [self fechaNacimiento]] : @"null", 
+        [self hombre] != nil ? [NSString stringWithFormat: @"'%@'", [self hombre]] : @"null",
+        [self telefono] != nil ? [NSString stringWithFormat: @"'%@'", [self telefono]] : @"null", 
+        [self fechaVencimientoLicencia] != nil ? [NSString stringWithFormat: @"'%@'", [self fechaVencimientoLicencia]] : @"null", 
+        [self fechaModificacion] != nil ? [NSString stringWithFormat: @"'%@'", [self fechaModificacion]] : @"null", 
+        [self borrado] != nil ? [NSString stringWithFormat: @"'%@'", [self borrado]] : @"null"];
 }
 
 - (NSDictionary *)getContentAsDictionary {
@@ -97,11 +97,11 @@
 		@"nombre":[self nombre] != nil ? [self nombre] : @"null",
 		@"correo":[self correo] != nil ? [self correo] : @"null",
 		@"fecha_nacimiento":[self fechaNacimiento] != nil ? [self fechaNacimiento] : @"null",
-		@"hombre":[self hombre] != nil ? ([self hombre] ? @"true" : @"false") : @"null",
+		@"hombre":[self hombre] != nil ? [self hombre] : @"null",
 		@"telefono":[self telefono] != nil ? [self telefono] : @"null",
 		@"fecha_vencimiento_licencia":[self fechaVencimientoLicencia] != nil ? [self fechaVencimientoLicencia] : @"null",
 		@"fecha_modificacion":[self fechaModificacion] != nil ? [self fechaModificacion] : @"null",
-		@"borrado":[self borrado] != nil ? ([self borrado] ? @"true" : @"false") : @"null"
+		@"borrado":[self borrado] != nil ? [self borrado] : @"null"
     };
 }
 
