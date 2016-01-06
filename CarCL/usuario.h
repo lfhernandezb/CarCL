@@ -14,8 +14,8 @@
 @interface usuario : NSObject {
 
 }
-    @property (nonatomic) long id;
-    @property (nonatomic) long idComuna;
+    @property (nonatomic, copy) NSString * id;
+    @property (nonatomic, copy) NSString * idComuna;
     @property (nonatomic, copy) NSString * nombre;
     @property (nonatomic, copy) NSString * correo;
     @property (nonatomic, copy) NSString * fechaNacimiento;
@@ -25,7 +25,7 @@
     @property (nonatomic, copy) NSString * fechaModificacion;
     @property (nonatomic, copy) NSString * borrado;
     
-- (id)initWithDao:(UsuarioDao *)aUsuarioDao;
+- (id)initWithDao:(UsuarioDao *)usuarioDao;
 
 - (NSString *)description;
 

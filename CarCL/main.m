@@ -16,21 +16,23 @@ int main(void) {
     
     u = [[carData usuarios] objectAtIndex:0];
     
-    NSLog(@"usuario :: %@", u.description);
+    NSLog(@"u :: %@", u.description);
 
     v = [[carData vehiculos] objectAtIndex:0];
     
-    NSLog(@"vehiculo :: %@", v.description);
+    NSLog(@"v :: %@", v.description);
     
     FMDatabaseQueue *fq = [FMDatabaseQueue databaseQueueWithPath:@"car.db3"];
     BROrmWrapper *w = [BROrmWrapper factoryForClassName:@"UsuarioDao" andDatabaseQueue:fq];
 	UsuarioDao *ud = [w create:[u getContentAsDictionary]];
 	
+	NSLog(@"ud :: %@", u.description);
+	
 	BOOL success = [ud save];
 	
 	UsuarioDao *us = (UsuarioDao*)[w findOne:@(11)];
 	
-	NSLog(@"usuario :: %@", us.description);
+	NSLog(@"us :: %@", us.description);
 	
 	usuario *uu = [[[usuario alloc] initWithDao:us] autorelease];
 	

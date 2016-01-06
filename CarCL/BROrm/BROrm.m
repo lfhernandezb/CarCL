@@ -306,7 +306,7 @@ static BOOL _logging = NO;
 - (void)forceAllDirty{
     _dirtyFields = [[_data allKeys] mutableCopy];
 }
-
+/*
 - (void)generateSaveQueryWithBlock:(void (^)(NSString *query, NSArray *values))block{
     
     if([_dirtyFields count] == 0){
@@ -322,6 +322,33 @@ static BOOL _logging = NO;
     NSArray *values;
     NSString *query;
     if(_isNew){
+        query = [self buildInsert:toSave];
+        values = [toSave allValues];
+    } else {
+        query = [self buildUpdate:toSave];
+        values = [[toSave allValues] arrayByAddingObject:[_data objectForKey:_idColumn]];
+    }
+    
+    block(query,values);
+}
+*/
+// reemplazo por LHB 2016-Ene-05
+- (void)generateSaveQueryWithBlock:(void (^)(NSString *query, NSArray *values))block{
+    
+    if([_dirtyFields count] == 0){
+        block(NULL,NULL);
+        return;
+    }
+    
+    NSMutableDictionary *toSave = [NSMutableDictionary dictionary];
+    for (NSString *key in _dirtyFields) {
+        [toSave setObject:[_data objectForKey:key] forKey:key];
+    }
+    
+    NSArray *values;
+    NSString *query;
+    
+    if([self findOne:self[_idColumn]] == nil){
         query = [self buildInsert:toSave];
         values = [toSave allValues];
     } else {
